@@ -1,7 +1,28 @@
 {
   "name": "gosh",
   "version": "0.1.0",
+  "author": {
+    "name": "Timothy Curcod",
+    "email": "timofeyc@domain.com",
+    "url": "https://github.com/timofeysie"
+  },
+  "build": {
+    "appId": "com.curchod.gosh",
+    "productName": "Gosh",
+    "copyright": "Copyright © 2019 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "electron-is-dev": "^1.1.0",
     "react": "^16.8.6",
@@ -14,7 +35,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "yarn build",
+    "electron-pack": "build -mw"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,9 +56,12 @@
     ]
   },
   "devDependencies": {
+    "@rescripts/cli": "^0.0.11",
+    "@rescripts/rescript-env": "^0.0.10",
     "concurrently": "^4.1.1",
     "electron": "^5.0.6",
     "electron-builder": "^21.0.15",
+    "typescript": "^3.5.3",
     "wait-on": "^3.2.0"
   }
 }

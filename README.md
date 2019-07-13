@@ -1,3 +1,43 @@
+
+
+
+#
+## Workflow
+
+
+Run the app in development:
+```
+yarn electron-dev
+```
+
+Run this command to package the app:
+```
+yarn electron-pack
+```
+
+Find out more about deployment [here](https://bit.ly/CRA-deploy).
+
+```
+$ build -mw
+/bin/sh: build: command not found
+error Command failed with exit code 127.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+```
+
+
+#
+## React & Electron
+
+In the package.json there are the following scripts.
+```
+"preelectron-pack": "yarn build" will build the CRA.
+"electron-pack": "build -mw" packages the app for Mac (m) and Windows (w).
+```
+
+
+#
+## Original Readme
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
