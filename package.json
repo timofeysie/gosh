@@ -27,7 +27,8 @@
     "electron-is-dev": "^1.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "wikidata-sdk": "^7.0.7"
   },
   "main": "public/electron.js",
   "scripts": {
@@ -61,7 +62,12 @@
     "concurrently": "^4.1.1",
     "electron": "^5.0.6",
     "electron-builder": "^21.0.15",
+    "electron-redux-devtools": "^0.3.4",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
     "typescript": "^3.5.3",
+    "uuid": "^3.3.2",
     "wait-on": "^3.2.0"
   }
 }
