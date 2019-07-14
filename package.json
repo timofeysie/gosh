@@ -6,6 +6,9 @@
     "email": "timofeyc@domain.com",
     "url": "https://github.com/timofeysie"
   },
+  "transform": {
+    "\\.js$": "<rootDir>/node_modules/babel-jest"
+  },
   "build": {
     "appId": "com.curchod.gosh",
     "productName": "Gosh",
@@ -34,12 +37,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
-    "electron-pack": "build -mw"
+    "electron-pack": "build -mw",
+    "test:watch": "npm test -- --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -57,12 +61,15 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@rescripts/cli": "^0.0.11",
     "@rescripts/rescript-env": "^0.0.10",
+    "babel-jest": "^24.8.0",
     "concurrently": "^4.1.1",
     "electron": "^5.0.6",
     "electron-builder": "^21.0.15",
     "electron-redux-devtools": "^0.3.4",
+    "jest": "^24.8.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
