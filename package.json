@@ -1,80 +1,15 @@
 {
-  "name": "gosh",
-  "version": "0.1.0",
-  "author": {
-    "name": "Timothy Curcod",
-    "email": "timofeyc@domain.com",
-    "url": "https://github.com/timofeysie"
-  },
-  "transform": {
-    "\\.js$": "<rootDir>/node_modules/babel-jest"
-  },
-  "build": {
-    "appId": "com.curchod.gosh",
-    "productName": "Gosh",
-    "copyright": "Copyright © 2019 ${author}",
-    "mac": {
-      "category": "public.app-category.utilities"
-    },
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets"
-    }
-  },
-  "private": true,
-  "homepage": "./",
-  "dependencies": {
-    "electron-is-dev": "^1.1.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "wikidata-sdk": "^7.0.7"
-  },
-  "main": "public/electron.js",
+  "name": "osh",
+  "version": "1.0.0",
+  "description": "Electron app",
+  "main": "main.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "jest",
-    "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "postinstall": "electron-builder install-app-deps",
-    "preelectron-pack": "yarn build",
-    "electron-pack": "build -mw",
-    "test:watch": "npm test -- --watch"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "author": "timbo",
+  "license": "ISC",
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
-    "@rescripts/cli": "^0.0.11",
-    "@rescripts/rescript-env": "^0.0.10",
-    "babel-jest": "^24.8.0",
-    "concurrently": "^4.1.1",
-    "electron": "^5.0.6",
-    "electron-builder": "^21.0.15",
-    "electron-redux-devtools": "^0.3.4",
-    "jest": "^24.8.0",
-    "react-redux": "^7.1.0",
-    "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0",
-    "typescript": "^3.5.3",
-    "uuid": "^3.3.2",
-    "wait-on": "^3.2.0"
+    "electron": "^6.0.6"
   }
 }
