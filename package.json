@@ -17,6 +17,7 @@
       "www/**/*",
       "electron/*"
     ]
+  },
   "scripts": {
     "ng": "ng",
 

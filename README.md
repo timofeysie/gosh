@@ -1,6 +1,5 @@
 # Ionic v4 Electron app
 
-
 Based on the "Tutorial: Photo Gallery app"
 
 A tutorial app that walks the user through creating a Photo Gallery app. We begin with the Ionic "tabs" starter app, incrementally converting the About tab to a Photo Gallery experience.
