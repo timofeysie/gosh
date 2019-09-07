@@ -1,7 +1,5 @@
 {
-  "name": "photo-rc1",
-  "integrations": {
-    "cordova": {}
-  },
+  "name": "kosh",
+  "integrations": {},
   "type": "angular"
 }
