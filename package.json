@@ -13,7 +13,7 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "ionic:watch": "ionic-app-scripts watch",
-    "start": "npm run build && electron ."
+    "start": "npm run build && electron .",
   },
   "private": true,
   "dependencies": {
