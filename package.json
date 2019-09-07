@@ -1,8 +1,12 @@
 {
   "name": "photo-rc1",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": {
+    "name": "Timothy Curchod",
+    "email": "timofeyc@example.com",
+    "url": "https://github.com/timofeysie"
+  },
+  "homepage": "https://github.com/timofeysie",
   "description": "ionic framework based electron project",
   "main": "electron/electron.js",
   "config": {
