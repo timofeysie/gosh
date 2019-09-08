@@ -3,6 +3,43 @@
 Electron app in various flavours to be used as a Kiosk running on a Raspberry Pi.
 
 
+## The Capacitor approach
+
+Create an Ionic app as usual, and build it to create the www file.  Then this:
+```
+npm install --save @capacitor/core @capacitor/cli
+npx cap init
+npx cap add electron
+npx cap copy
+npx cap open electron
+```
+
+```
+npx cap open electron
+```
+
+This works to run an Electron app, but the window is empty, and the console log shows:
+```
+runtime-es2015.js:1 Failed to load resource: net::ERR_FILE_NOT_FOUND
+polyfills-es2015.js:1 Failed to load resource: net::ERR_FILE_NOT_FOUND
+styles-es2015.js:1 Failed to load resource: net::ERR_FILE_NOT_FOUND
+vendor-es2015.js:1 Failed to load resource: net::ERR_FILE_NOT_FOUND
+main-es2015.js:1 Failed to load resource: net::ERR_FILE_NOT_FOUND
+/Users/tim/electron/…ity-warnings.js:272 Electron Deprecation Warning (contextIsolation default change) This window has context isolation disabled by default. In Electron 5.0.0, context isolation will be enabled by default. To prepare for this change, set {contextIsolation: false} in the webPreferences for this window, or ensure that this window does not rely on context isolation being disabled, and set {contextIsolation: true}.
+For more information, see https://electronjs.org/docs/tutorial/security#3-enable-context-isolation-for-remote-content
+/Users/tim/electron/…ity-warnings.js:170 Electron Security Warning (Insecure Content-Security-Policy) This renderer process has either no Content Security
+    Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+    this app to unnecessary security risks.
+For more information and help, consult
+https://electronjs.org/docs/tutorial/security.
+ This warning will not show up
+once the app is packaged.
+```
+
+
+
+
+
 ## The Yazeee Method
 
 Following the [Yalzeee](https://steemit.com/utopian-io/@yalzeee/ionic-tutorials-working-with-electron-api-s) method for setting up an Ionic app with Electron.
@@ -103,7 +140,12 @@ For more information, please see the default Ionic project main.ts file here: ht
 npm ERR! code ELIFECYCLE
 ```
 
-Been there?  Done that?  Me too.
+Been there?  Done that?  Me too.  Maybe Capacitor is the answer here.
+Apparently Capacitor has [First-class Electron and PWA support](https://ionicframework.com/blog/announcing-capacitor-1-0/).
+
+In the official docs however, it says this: *Capacitor has preliminary support for Electron.  Electron support for Capacitor is currently in preview, and lags behind iOS, Android, and Web support.*.
+
+
 
 
 
