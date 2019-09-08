@@ -4,6 +4,7 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "main": "main.js",
+  "private": true,
   "scripts": {
     "debug-main": "electron --inspect-brk=5858 .",
     "build": "ionic-app-scripts build",
@@ -13,9 +14,8 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "ionic:watch": "ionic-app-scripts watch",
-    "start": "npm run build && electron .",
+    "start": "npm run build && electron ."
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "~8.1.2",
     "@angular/compiler": "~8.1.2",
@@ -43,6 +43,7 @@
     "@angular/compiler-cli": "~8.1.2",
     "@angular/language-service": "~8.1.2",
     "@ionic/angular-toolkit": "~2.0.0",
+    "@ionic/app-scripts": "^3.2.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",

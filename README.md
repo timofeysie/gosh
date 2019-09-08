@@ -33,6 +33,41 @@ npm ERR! JSON.parse Failed to parse package.json data.
 npm ERR! JSON.parse package.json must be actual JSON, not just JavaScript.
 ```
 
+Although I've heard it stated that it's good practice to include a comma at the end of lines in JSON even when there is no other items next, in this case, it causes an error:
+```
+"start": "npm run build && electron .",
+},
+```
+
+Remove the comma there before the end and the script runs.  Then we're back to the first error:
+```
+ionic-app-scripts: command not found
+```
+
+Trying this:
+```
+$ npm i ionic-app-scripts
+npm ERR! code E404
+npm ERR! 404 Not Found - GET https://registry.npmjs.org/ionic-app-scripts - Not found
+npm ERR! 404  'ionic-app-scripts@latest' is not in the npm registry.
+npm ERR! 404 Your package name is not valid, because
+npm ERR! 404  1. name can only contain URL-friendly characters
+```
+
+This is the advice for that error:
+```
+npm install @ionic/app-scripts@latest --save-dev
+```
+
+And the next error:
+```
+[17:02:07]  TypeError: Cannot read property 'replace' of null
+```
+
+
+
+
+
 ## Workflow
 
 ```
