@@ -63,8 +63,47 @@ And the next error:
 ```
 [17:02:07]  TypeError: Cannot read property 'replace' of null
 ```
+Some advice was that the author tag needs to be in the package.json file with the name, email and url properties.  But with that, we still get the error:
+```
+[17:25:52]  build dev started ...
+[17:25:53]  typescript error
+            Argument for '--lib' option must be: 'es5', 'es6', 'es2015', 'es7', 'es2016', 'es2017', 'esnext', 'dom',
+            'dom.iterable', 'webworker', 'scripthost', 'es2015.core', 'es2015.collection', 'es2015.generator',
+            'es2015.iterable', 'es2015.promise', 'es2015.proxy', 'es2015.reflect', 'es2015.symbol',
+            'es2015.symbol.wellknown', 'es2016.array.include', 'es2017.object', 'es2017.sharedmemory', 'es2017.string',
+            'es2017.intl', 'esnext.asynciterable'.
+[17:25:53]  ionic-app-script task: "build"
+[17:25:53]  TypeError: Cannot read property 'replace' of null
+```
 
+SO: *For TypeScript 3.3.3, just add es2018.promise to your tsconfig.json - compilerOptions.lib config like this*
+```
+"lib": ["es2015", "es2016", "dom", "es2018.promise"]
+```
 
+With that line in the tsconfig file, we still get this error:
+```
+[17:50:46]  typescript error
+            Argument for '--lib' option must be: 'es5', 'es6', 'es2015', 'es7', 'es2016', 'es2017', 'esnext', 'dom',
+            'dom.iterable', 'webworker', 'scripthost', 'es2015.core', 'es2015.collection', 'es2015.generator',
+            'es2015.iterable', 'es2015.promise', 'es2015.proxy', 'es2015.reflect', 'es2015.symbol',
+            'es2015.symbol.wellknown', 'es2016.array.include', 'es2017.object', 'es2017.sharedmemory', 'es2017.string',
+            'es2017.intl', 'esnext.asynciterable'.
+[17:50:47]  ionic-app-script task: "build"
+[17:50:47]  TypeError: Cannot read property 'replace' of null
+```
+
+Used the exact same string of options listed above and the error changes to somthing like this:
+```
+[17:55:51]  ionic-app-script task: "build"
+[17:55:51]  Error: /Users/tim/electron/gosh/src/app/main.ts was not found. The "main.dev.ts" and "main.prod.ts" files have been deprecated. Please create a new file "main.ts" containing the content of "main.dev.ts", and then delete the deprecated files.
+For more information, please see the default Ionic project main.ts file here: https://github.com/ionic-team/ionic2-app-base/tree/master/src/app/main.ts
+    at new BuildError (/Users/tim/electron/gosh/node_modules/@ionic/app-scripts/dist/util/errors.js:16:28)
+    at /Users/tim/electron/gosh/node_modules/@ionic/app-scripts/dist/build/util.js:92:21
+npm ERR! code ELIFECYCLE
+```
+
+Been there?  Done that?  Me too.
 
 
 
@@ -78,7 +117,7 @@ npm start
 
 
 
-# Proposed prjects
+# Proposed projects
 
 
 ## The tank of sea combs project
