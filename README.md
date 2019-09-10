@@ -5,6 +5,7 @@ Electron app in various flavours to be used as a Kiosk running on a Raspberry Pi
 
 ## The Capacitor approach
 
+Using the [official documents](https://capacitor.ionicframework.com/docs/electron/) as a guide.
 Create an Ionic app as usual, and build it to create the www file.  Then this:
 ```
 npm install --save @capacitor/core @capacitor/cli
@@ -36,7 +37,14 @@ https://electronjs.org/docs/tutorial/security.
 once the app is packaged.
 ```
 
-
+Replace
+```
+  <base href="/" />
+```
+with
+```
+<base href="./">
+```
 
 
 
