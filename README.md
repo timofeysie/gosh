@@ -15,7 +15,10 @@ npx cap copy
 npx cap open electron
 ```
 
+Workflow
 ```
+ionic build
+npm start
 npx cap open electron
 ```
 
@@ -46,6 +49,32 @@ with
 <base href="./">
 ```
 
+Then the console error is:
+```
+GET file:///runtime-2s2015.js net::ERR_FILE_NOT_FOUND
+```
+
+In the electron/app directory there are files going from 0 to 78 starting at 0-es2015.js.
+
+Looking at the error message, it's coming from this line in the index.html:
+```
+<body>
+  <app-root></app-root>
+    <script src="runtime-es2015.js" type="module"></script>
+    <script src="polyfills-es2015.js" type="module"></script>
+    <script src="runtime-es5.js" nomodule></script>
+    <script src="polyfills-es5.js" nomodule></script>
+    <script src="styles-es2015.js" type="module"></script>
+    <script src="styles-es5.js" nomodule></script>
+    <script src="vendor-es2015.js" type="module"></script>
+    <script src="main-es2015.js" type="module"></script>
+    <script src="vendor-es5.js" nomodule></script>
+    <script src="main-es5.js" nomodule>
+</script>
+</body>
+```
+
+Since we have chunks of equating to modules and not specific type bundles, something has to change.
 
 
 ## The Yazeee Method
