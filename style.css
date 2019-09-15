@@ -1,6 +1,9 @@
 svg input:checked  {
     fill:yellow;
 }
+.my-label {
+	display: block; margin: auto; text-align: center;">
+}
 
 .my-image:hover {
     background-color:green;
