@@ -76,6 +76,138 @@ Looking at the error message, it's coming from this line in the index.html:
 
 Since we have chunks of equating to modules and not specific type bundles, something has to change.
 
+After trying again with the Capacitor approach and debugging the same result, it appears that the *npx cap open electron* command needs to be run from within the electron directory in the project.  
+
+That will then cause a new error:
+```
+>npx cap open electron
+gyp ERR! configure error
+gyp ERR! stack Error: Command failed: C:\Windows\py.exe -c import sys; print "%s.%s.%s" % sys.version_info[:3];
+gyp ERR! stack   File "<string>", line 1
+gyp ERR! stack     import sys; print "%s.%s.%s" % sys.version_info[:3];
+gyp ERR! stack                                ^
+gyp ERR! stack SyntaxError: invalid syntax
+gyp ERR! stack
+gyp ERR! stack     at ChildProcess.exithandler (child_process.js:304:12)
+gyp ERR! stack     at ChildProcess.emit (events.js:196:13)
+gyp ERR! stack     at maybeClose (internal/child_process.js:1000:16)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:267:5)
+gyp ERR! System Windows_NT 10.0.17763
+gyp ERR! command "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\timof\\AppData\\Roaming\\nvm\\v12.0.0\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js" "rebuild"
+gyp ERR! cwd C:\Users\timof\AppData\Roaming\npm-cache\_npx\16532\node_modules\cap
+gyp ERR! node -v v12.0.0
+gyp ERR! node-gyp -v v3.8.0
+gyp ERR! not ok
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! cap@0.2.1 install: `node-gyp rebuild`
+npm ERR! Exit status 1
+npm ERR! Failed at the cap@0.2.1 install script.
+Install for [ 'cap@latest' ] failed with code 1
+```
+
+Python is installed:
+```
+>python --version
+Python 2.7.15
+```
+
+Only a few nibbles on Google suggest something like this:
+```
+https://github.com/felixrieseberg/windows-build-tools/issues/33
+
+npm --add-python-to-path='true' --debug install --global windows-build-tools
+or
+npm config set python "c:\Python\27\python.exe"
+```
+
+Since windows build tools have already been installed on this computer, there must be another answer.  Since the last time while installing it to get the work repo to run, what worked was to use yarn instead of npm.  Time to try that on this project.
+
+From the start.  FIrst create a new Ionic app:
+```
+ionic start whisky blank
+cd whisky
+ionic build
+```
+
+Then, add Capacitor and Electron:
+```
+npm install --save @capacitor/core @capacitor/cli
+npx cap init
+```
+
+That last step asks you the big question: npm or yarn?
+Next
+```
+npx cap add electron
+npx cap copy
+npx cap open electron
+```
+
+Also, trying to use the subdirectory with yard fails and despite opening a blank electron window, the console log error is the same:
+```
+GET file:///C:/runtime-es2015.js net::ERR_FILE_NOT_FOUND
+```
+
+The Ionic build still is not connected to the Electron build.
+Using *yarn start* is the same as *npm start*, it runs the *gn serve* command and deploys the Ionic app.  No problems there.
+
+
+
+
+Using the common fix for the error as detailed [here](https://github.com/ionic-team/capacitor/issues/888), namely, replacing 
+```
+<base href="/">
+```
+with 
+```
+<base href="./">
+```
+
+We still however get a blank app along with the following in the console log:
+```
+main-es2015.js:1 Failed to load module script: The server responded with a non-JavaScript MIME type of "". Strict MIME type checking is enforced for module scripts per HTML spec.
+runtime-es2015.js:1 Failed to load module script: The server responded with a non-JavaScript MIME type of "". Strict MIME type checking is enforced for module scripts per HTML spec.
+styles-es2015.js:1 Failed to load module script: The server responded with a non-JavaScript MIME type of "". Strict MIME type checking is enforced for module scripts per HTML spec.
+polyfills-es2015.js:1 Failed to load module script: The server responded with a non-JavaScript MIME type of "". Strict MIME type checking is enforced for module scripts per HTML spec.
+vendor-es2015.js:1 Failed to load module script: The server responded with a non-JavaScript MIME type of "". Strict MIME type checking is enforced for module scripts per HTML spec.
+C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:272 Electron Deprecation Warning (contextIsolation default change) This window has context isolation disabled by default. In Electron 5.0.0, context isolation will be enabled by default. To prepare for this change, set {contextIsolation: false} in the webPreferences for this window, or ensure that this window does not rely on context isolation being disabled, and set {contextIsolation: true}.
+
+For more information, see https://electronjs.org/docs/tutorial/security#3-enable-context-isolation-for-remote-content
+warnAboutContextIsolationDefault @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:272
+logSecurityWarnings @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:313
+loadHandler @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:335
+C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:170 Electron Security Warning (Insecure Content-Security-Policy) This renderer process has either no Content Security
+    Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+    this app to unnecessary security risks.
+ 
+For more information and help, consult
+https://electronjs.org/docs/tutorial/security.
+ This warning will not show up
+once the app is packaged.
+isUnsafeEvalEnabled.then @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:170
+Promise.then (async)
+warnAboutInsecureCSP @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:163
+logSecurityWarnings @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:310
+loadHandler @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:335
+```
+
+Trying some more ideas further down in the issue linked to above:
+```
+cd electron
+npm install @capacitor/electron@1.0.0-beta.11 --save
+npm install electron@3.0.10 --save-dev
+```
+
+Next solution: Change "target": "es2015" to "target": "es5" in your tsconfig.json file.
+```
+ionic build
+Failed to load module script: The server responded with a non-JavaScript MIME type of "". Strict MIME type checking is enforced for module scripts per HTML spec.
+```
+
+We might need a *type="text/javascript"* or something in the index.html file.  But where?
+
+Going to try all the steps again on the mac now.
 
 ## The Yazeee Method
 
