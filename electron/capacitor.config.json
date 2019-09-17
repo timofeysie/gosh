@@ -1,7 +1,0 @@
-{
-  "appId": "com.kosh.what",
-  "appName": "kosh",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www"
-}
