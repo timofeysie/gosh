@@ -3,6 +3,43 @@
 Electron app in various flavours to be used as a Kiosk running on a Raspberry Pi.
 
 
+## The Angular approach
+
+Using [this article](https://malcoded.com/posts/angular-desktop-electron/) to set up an Angular Electron app.
+```
+ng new angular-electron
+npm i -D electron
+npm i -D @types/electron
+```
+
+Also:
+* Create the main.ts file for the basics of the Electron app.
+* Create a new script inside of our package.json and tell electron the entry point of our electron application. We do so by specifying the "main"-property in the package.json.
+
+```
+npm run electron
+```
+
+
+After having issues with Ionic setup, and getting similar issues with an plain Angular version.
+When creating an Angular/Electron flavor, after getting this error:
+
+electron Failed to load module script: The server responded with a non-JavaScript MIME type of "". Strict MIME type checking is enforced for module scripts per HTML spec.
+Following the advice from [StackOverflow here](https://stackoverflow.com/questions/51113097/electron-es6-module-import/51126482) fixed the issue.
+
+The advice in an un-accepted answer says *in the event that you just need to get it deployed:  Change "target": "es2015" to "target": "es5" in your tsconfig.json file*
+
+The app runs, but there is still one error in the console:
+```
+Failed to load resource: net::ERR_NOT_IMPLEMENTED
+```
+
+Obvisouly a show stopper.  Just wish the Ionic version would work also.  The accepted answer to the SO link above goes on to say:
+*the corresponding HTML spec, disallows import via file:// (For XSS reasons) and a protocol must have the mime types defined.  The file protocol you use client:// has to set the correct mime-types when serving the files. Currently i would guess they are not set when you define the protocol via protocol.registerBufferProtocol thus you recive a The server responded with a non-JavaScript MIME type of "", the gist above has a code sample on how to do it.  Edit: I just want to emphasize the other answers here do only cover the absolute minimum basics implementation with no consideration of exceptions, security, or future changes. I highly recommend taking the time and read trough the gist I linked.*
+
+[This is the Gist](https://gist.github.com/smotaal/f1e6dbb5c0420bfd585874bd29f11c43).
+
+
 ## The Capacitor approach
 
 Using the [official documents](https://capacitor.ionicframework.com/docs/electron/) as a guide.
@@ -123,7 +160,7 @@ npm config set python "c:\Python\27\python.exe"
 
 Since windows build tools have already been installed on this computer, there must be another answer.  Since the last time while installing it to get the work repo to run, what worked was to use yarn instead of npm.  Time to try that on this project.
 
-From the start.  FIrst create a new Ionic app:
+From the start.  First create a new Ionic app:
 ```
 ionic start whisky blank
 cd whisky
@@ -155,11 +192,11 @@ Using *yarn start* is the same as *npm start*, it runs the *gn serve* command an
 
 
 
-Using the common fix for the error as detailed [here](https://github.com/ionic-team/capacitor/issues/888), namely, replacing 
+Using the common fix for the error as detailed [here](https://github.com/ionic-team/capacitor/issues/888), namely, replacing
 ```
 <base href="/">
 ```
-with 
+with
 ```
 <base href="./">
 ```
@@ -180,7 +217,7 @@ loadHandler @ C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\elect
 C:\Users\timof\repos\temp\ionic\whisky\electron\node_modules\electron\dist\resources\electron.asar\renderer\security-warnings.js:170 Electron Security Warning (Insecure Content-Security-Policy) This renderer process has either no Content Security
     Policy set or a policy with "unsafe-eval" enabled. This exposes users of
     this app to unnecessary security risks.
- 
+
 For more information and help, consult
 https://electronjs.org/docs/tutorial/security.
  This warning will not show up
