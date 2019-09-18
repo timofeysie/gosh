@@ -2,6 +2,25 @@
 
 Electron app in various flavours to be used as a Kiosk running on a Raspberry Pi.
 
+The code in main.ts file runs on the main process.  This can use the usual Node APIs.  This process spawns the second one by opening the browser window.  The second process depends on what files are loaded in the index.html file.  It could be vanilla JS, React, Angular or any other web tech.
+
+The Electron eco-system offers two options for native ES modules: Chromium's module loading subsystem or Custom NodeJS loaders via Node's module loading subsystem which is recommended.
+
+There is [some destructuring craziness](https://gist.github.com/smotaal/f1e6dbb5c0420bfd585874bd29f11c43) shown:
+```Javascript
+const { mainModule } = process, { error } = console;
+function createProtocol(scheme, base, normalize = true) {
+  const mimeTypeFor = require('./mime-types'),
+    { app, protocol } = require('electron'),
+    { URL } = require('url'),
+    { readFileSync: read } = require('fs'),
+    { _resolveFilename: resolve } = require('module');
+  // Should only be called after app:ready fires
+  if (!app.isReady())
+    return app.on('ready', () => createProtocol(...arguments));
+```
+
+
 
 ## The Angular approach
 
@@ -20,7 +39,6 @@ Also:
 npm run electron
 ```
 
-
 After having issues with Ionic setup, and getting similar issues with an plain Angular version.
 When creating an Angular/Electron flavor, after getting this error:
 
@@ -38,6 +56,8 @@ Obvisouly a show stopper.  Just wish the Ionic version would work also.  The acc
 *the corresponding HTML spec, disallows import via file:// (For XSS reasons) and a protocol must have the mime types defined.  The file protocol you use client:// has to set the correct mime-types when serving the files. Currently i would guess they are not set when you define the protocol via protocol.registerBufferProtocol thus you recive a The server responded with a non-JavaScript MIME type of "", the gist above has a code sample on how to do it.  Edit: I just want to emphasize the other answers here do only cover the absolute minimum basics implementation with no consideration of exceptions, security, or future changes. I highly recommend taking the time and read trough the gist I linked.*
 
 [This is the Gist](https://gist.github.com/smotaal/f1e6dbb5c0420bfd585874bd29f11c43).
+
+The rest of the article talks about accessing the file system from the app.
 
 
 ## The Capacitor approach
