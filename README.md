@@ -22,3 +22,28 @@ Next,
 ```
 npm install electron electron-builder foreman --save-dev
 ```
+
+
+Boot on startup
+
+Edit the rc.local file with:
+```
+sudo nano /etc/rc.local
+```
+
+Add this line:
+```
+/home/pi/repos/gosh/npm start
+```
+
+
+
+
+
+
+
+
+
+
+
+
